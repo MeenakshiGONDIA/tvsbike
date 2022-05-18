@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Cart.css";
 
-const Cart = ({ cart, setCart, handleChange }) => {
+const Cart = ({ cart, setCart, handleChange, props }) => {
   const [price, setPrice] = useState(0);
+  const [count, setCount] = useState(props);
+
 
   const handleRemove = (id) => {
     const arr = cart.filter((item) => item.id !== id);
@@ -12,7 +14,7 @@ const Cart = ({ cart, setCart, handleChange }) => {
 
   const handlePrice = () => {
     let ans = 0;
-    cart.map((item) => (ans += item.amount * item.price));
+    cart.map((item) => (ans += item.count * item.price));
     setPrice(ans);
   };
 
@@ -29,9 +31,9 @@ const Cart = ({ cart, setCart, handleChange }) => {
             <p>{item.title}</p>
           </div>
           <div>
-            <button onClick={() => handleChange(item, 1)}>+</button>
-            <button>{item.amount}</button>
-            <button onClick={() => handleChange(item, -1)}>-</button>
+            <button onClick={() => setCount(count + 1)}>+</button>
+            <button>{count}</button>
+            <button onClick={() => setCount(count - 1)}>-</button>
           </div>
           <div>
             <span>{item.price}</span>
